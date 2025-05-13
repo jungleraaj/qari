@@ -22,7 +22,6 @@ body {
     width: 90%;
     box-sizing: border-box;
     animation: fadeIn 1s ease-out;
-    /* margin-bottom: 80px; Removed because padding-bottom is on body */
     display: flex; /* Use flexbox for layout inside container */
     flex-direction: column; /* Arrange children vertically */
     align-items: center; /* Center items horizontally */
@@ -44,7 +43,7 @@ h1 {
     width: 100%; /* Ensure heading takes full width */
 }
 
-/* New Track Info Detail Styles */
+/* Track Info Detail Styles */
 .track-info-detail {
     margin-bottom: 20px; /* Space below track info */
     color: #ccc; /* Lighter color for info */
@@ -245,7 +244,7 @@ h1 {
 }
 
 
-/* New Loading Indicator Style */
+/* Loading Indicator Style */
 .loading-indicator {
     color: #ff4081; /* Accent color */
     font-size: 1em;
@@ -300,6 +299,7 @@ h1 {
     margin: 0;
 }
 
+/* Style for EACH track item (li) */
 .track-item {
     padding: 10px 15px;
     margin-bottom: 8px;
@@ -307,9 +307,14 @@ h1 {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.1s ease;
-    text-align: left;
     font-size: 1.1em;
     color: #e0e0e0;
+
+    display: flex; /* Use flexbox to align text and button */
+    justify-content: space-between; /* Space out track name and download button */
+    align-items: center; /* Vertically align items */
+    width: 100%; /* Ensure it takes full width */
+    box-sizing: border-box; /* Include padding in width */
 }
 
 .track-item:hover {
@@ -323,6 +328,38 @@ h1 {
     font-weight: bold;
     box-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
 }
+
+/* Style for the text part inside the list item */
+.track-item .track-info-text {
+    flex-grow: 1; /* Allow text to take up available space */
+    margin-right: 10px; /* Space between text and button */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Add ellipsis (...) for overflow text */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+
+/* Style for the download button/link inside the list item */
+.track-item .download-btn {
+    color: #e0e0e0; /* Icon color */
+    font-size: 1em; /* Icon size */
+    text-decoration: none; /* Remove underline */
+    margin-left: 10px; /* Space from text */
+    flex-shrink: 0; /* Prevent button from shrinking */
+    padding: 5px; /* Add some padding to make it easier to click */
+    border-radius: 50%; /* Optional: Make it round */
+    transition: color 0.2s ease, background-color 0.2s ease;
+    display: flex; /* Center icon inside button */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Show pointer cursor */
+}
+
+.track-item .download-btn:hover {
+    color: #ff4081; /* Change color on hover */
+    background-color: rgba(255, 255, 255, 0.1); /* Optional: Add background on hover */
+}
+
 
 /* Scrollbar Customization (for Webkit browsers like Chrome/Edge) */
 .track-list-container::-webkit-scrollbar {
@@ -373,7 +410,7 @@ h1 {
 .audio-bar-controls {
     display: flex;
     align-items: center;
-    flex-shrink: 0; /* Prevent controls from shrinking */
+    flex-shrink: 0;
 }
 
 .control-btn.small {
@@ -390,7 +427,7 @@ h1 {
 /* Responsive Design */
 @media (max-width: 600px) {
     body {
-        padding-bottom: 70px; /* Adjust for slightly smaller bar */
+        padding-bottom: 70px;
     }
     .player-container {
         padding: 20px;
@@ -416,7 +453,7 @@ h1 {
     }
 
     .control-btn {
-        width: 45px; /* Slightly smaller */
+        width: 45px;
         height: 45px;
         font-size: 1.1em;
     }
@@ -456,7 +493,7 @@ h1 {
     }
 
     #volume-slider {
-        width: 120px; /* Adjust slider width */
+        width: 120px;
     }
 
 
@@ -478,10 +515,19 @@ h1 {
         padding: 8px 12px;
         font-size: 1em;
     }
+     /* Adjust padding for download button */
+     .track-item .download-btn {
+         padding: 3px;
+         margin-left: 8px;
+     }
+     .track-item .track-info-text {
+         margin-right: 8px;
+     }
+
 
     .audio-bar {
         padding: 8px 15px;
-        padding-right: 10px; /* Adjust right padding */
+        padding-right: 10px;
     }
 
     #audio-bar-track-name {
@@ -489,7 +535,7 @@ h1 {
         margin-right: 10px;
     }
 
-    .audio-bar-controls .control-btn.small { /* Specific margin for bar controls */
+    .audio-bar-controls .control-btn.small {
        width: 35px;
        height: 35px;
        font-size: 0.9em;
@@ -537,7 +583,7 @@ h1 {
       }
       .volume-control {
         gap: 5px;
-        margin-bottom: 20px; /* Adjust margin */
+        margin-bottom: 20px;
       }
        #volume-icon {
         font-size: 1em;
@@ -548,10 +594,30 @@ h1 {
      }
 
 
-     .track-item {
-        font-size: 0.9em;
-        padding: 7px 10px;
+     .track-list-container {
+        padding: 15px;
+        margin-top: 15px;
      }
+
+     .track-list-container h2 {
+        font-size: 1.2em;
+     }
+
+     .track-item {
+        padding: 7px 10px;
+        font-size: 0.9em;
+     }
+      /* Adjust padding for download button */
+     .track-item .download-btn {
+         padding: 2px;
+         margin-left: 5px;
+         font-size: 0.7em; /* Smaller icon */
+     }
+      .track-item .track-info-text {
+         margin-right: 5px;
+         font-size: 0.9em;
+     }
+
 
      .audio-bar {
         padding: 6px 10px;
@@ -563,98 +629,7 @@ h1 {
        width: 30px;
        height: 30px;
        font-size: 0.8em;
-       margin: 0 1px; /* Reduce margin */
+       margin: 0 1px;
     }
-/* --- New Styles for Download Button in Track List --- */
-.track-item {
-    /* Existing styles */
-    padding: 10px 15px;
-    margin-bottom: 8px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    /* text-align: left; <-- Remove or override this, use flexbox for alignment */
-    font-size: 1.1em;
-    color: #e0e0e0;
 
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space out track name and download button */
-    align-items: center; /* Vertically align items */
-}
-
-.track-item:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateX(5px);
-}
-
-.track-item.active {
-    background-color: #ff4081;
-    color: #ffffff;
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
-}
-
-.track-item .track-info-text { /* Style for the track name/artist text */
-    flex-grow: 1; /* Allow text to take up available space */
-    margin-right: 10px; /* Space between text and button */
-    overflow: hidden; /* Hide overflow text */
-    text-overflow: ellipsis; /* Add ellipsis (...) for overflow text */
-    white-space: nowrap; /* Prevent text from wrapping */
-}
-
-
-.track-item .download-btn {
-    color: #e0e0e0; /* Icon color */
-    font-size: 1em; /* Icon size */
-    text-decoration: none; /* Remove underline */
-    margin-left: 10px; /* Space from text */
-    flex-shrink: 0; /* Prevent button from shrinking */
-    padding: 5px; /* Add some padding to make it easier to click */
-    border-radius: 50%; /* Optional: Make it round */
-    transition: color 0.2s ease, background-color 0.2s ease;
-    display: flex; /* Center icon inside button */
-    justify-content: center;
-    align-items: center;
-}
-
-.track-item .download-btn:hover {
-    color: #ff4081; /* Change color on hover */
-    background-color: rgba(255, 255, 255, 0.1); /* Optional: Add background on hover */
-}
-
-/* --- End New Styles --- */
-
-
-/* Keep all your existing styles above or below this */
-/* ... existing styles ... */
-
-
-/* Responsive adjustments for download button if needed */
-@media (max-width: 600px) {
-    .track-item {
-        padding: 8px 12px; /* Adjust padding */
-    }
-    .track-item .download-btn {
-        font-size: 0.9em; /* Adjust icon size */
-        padding: 4px;
-    }
-     .track-item .track-info-text {
-         margin-right: 8px;
-     }
-}
-
-@media (max-width: 400px) {
-     .track-item {
-        padding: 7px 10px;
-     }
-      .track-item .download-btn {
-        font-size: 0.8em;
-        padding: 3px;
-     }
-     .track-item .track-info-text {
-         margin-right: 5px;
-         font-size: 0.9em; /* Match list item font size */
-     }
-}
 }
