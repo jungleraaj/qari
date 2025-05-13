@@ -1,7 +1,7 @@
 [
   {
-    "name": "1",
-    "path": "audio/1.mp3",
+    "name": "song1",
+    "path": "audio/song1.mp3",
     "artist": "Qari Abdul Salam Azizi",
     "album": "Short Surahs Collection"
   },
@@ -12,7 +12,7 @@
     "album": "Selected Verses"
   },
   {
-    "name": "1",
+    "name": "song1",
     "path": "audio/song1.mp3"
   }
 ]
