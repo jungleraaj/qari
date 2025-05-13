@@ -11,18 +11,4 @@
     "name": "Short Recitation",
     "path": "audio/short_recitation.ogg"
   }
-  // Agar koi NAYI AUDIO FILE add karni hai, toh neeche di gayi
-  // lines mein se comment (//) hata kar unko istemal karein.
-  // Aur yaad se upar wali akhri entry ke baad comma lagayen.
-  //
-  // ,  <-- Agar mazeed entries add karni hain toh yahan comma lagayen
-  // {
-  //   "name": "Nayi Audio Ka Naam",
-  //   "path": "audio/apni_nayi_audio_file.mp3"
-  // }
-  // , <-- Agar iske baad bhi aur hain toh yahan comma lagayen
-  // {
-  //   "name": "Dosri Nayi Audio",
-  //   "path": "audio/dosri_nayi_audio_file.wav"
-  // }
 ]
