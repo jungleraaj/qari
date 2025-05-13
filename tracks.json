@@ -1,18 +1,18 @@
 [
   {
-    "name": "Surah Al-Fatiha",
+    "name": "1",
     "path": "audio/1.mp3",
     "artist": "Qari Abdul Salam Azizi",
     "album": "Short Surahs Collection"
   },
   {
-    "name": "Surah Al-Baqarah Ayat 1-5",
+    "name": "3",
     "path": "audio/3.mp3",
     "artist": "Qari Abdul Salam Azizi",
     "album": "Selected Verses"
   },
   {
-    "name": "Short Recitation",
+    "name": "1",
     "path": "audio/song1.mp3"
   }
 ]
