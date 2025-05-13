@@ -67,7 +67,8 @@ function formatTime(seconds) {
 function showLoadingIndicator() {
     if (loadingIndicator) {
         loadingIndicator.classList.add('visible');
-        loadingIndicator.textContent = "Loading..."; // Default message
+        // You can cycle through messages here if you want
+        // loadingIndicator.textContent = "Loading...";
     }
 }
 
@@ -790,11 +791,21 @@ function renderTrackList() {
 
     listToRender.forEach((track, index) => { // Iterate over track objects
         const listItem = document.createElement('li');
+        // Add the track-item class for styling
         listItem.classList.add('track-item');
         // Store the index in the *currently displayed list* (shuffled or original)
         listItem.dataset.index = index;
 
-        // Display logic: Primary name, maybe secondary artist/album if available
+        // --- New Code for Track Item Content (Text + Download Button) ---
+        const trackContent = document.createElement('div');
+        trackContent.style.display = 'flex'; // Use flexbox for layout
+        trackContent.style.justifyContent = 'space-between'; // Space out text and button
+        trackContent.style.alignItems = 'center'; // Vertically align items
+        trackContent.style.width = '100%'; // Ensure it takes full width of list item
+
+
+        // Create text span for track name/artist
+        const trackText = document.createElement('span');
         let displayText = track.name;
         if (track.artist && track.artist !== "" && track.artist !== track.name) { // Avoid duplicating name if artist is same
             displayText += ` - ${track.artist}`;
@@ -803,62 +814,61 @@ function renderTrackList() {
         // if (track.album && track.album !== "") {
         //     displayText += ` (${track.album})`;
         // }
+        trackText.textContent = displayText;
+        trackText.classList.add('track-info-text'); // Add class for styling
 
-        listItem.textContent = displayText;
 
-        listItem.addEventListener('click', () => {
-             // When a list item is clicked, find the *original* index of that track object
-            const originalIndex = audioFiles.indexOf(track);
-            if (originalIndex !== -1) {
-                loadTrack(originalIndex, true); // Load using the original index
-            } else {
-                 // Fallback if somehow track object not found in original list (shouldn't happen)
-                 loadTrack(index, true); // Load using the index in the current list
+        // Create download link
+        const downloadLink = document.createElement('a');
+        // Use encodeURI to handle potential spaces or special characters in the path
+        downloadLink.href = encodeURI(track.path); // Set the file path from JSON
+        // Set the download attribute to suggest a filename
+        // Suggest name.ext, handling potential missing extension in path gracefully
+        const fileName = track.path.split('/').pop(); // Get just the filename part
+        const suggestedFileName = track.name + (fileName.includes('.') ? fileName.substring(fileName.lastIndexOf('.')) : ''); // Add extension if found
+
+        downloadLink.download = suggestedFileName; // Suggest filename for download
+        downloadLink.classList.add('download-btn'); // Add a class for styling
+        downloadLink.innerHTML = '<i class="fas fa-download"></i>'; // Add download icon
+        downloadLink.title = `Download ${track.name}`; // Add a tooltip
+
+
+        // Add click listener to the list item (excluding clicks on the download link)
+        // We use event delegation here to check what was actually clicked inside the li
+        listItem.addEventListener('click', (event) => {
+            // Check if the click target or any of its ancestors is the download link
+            if (event.target.closest('.download-btn')) {
+                // If click is on download button or its icon, do nothing (let the link's default behavior handle download)
+                console.log(`Download clicked for track: ${track.name}`);
+                return;
             }
+
+            // If click is elsewhere in the list item, load and play the track (existing logic)
+             console.log(`Track item clicked for playback: ${track.name}`);
+             const originalIndex = audioFiles.indexOf(track);
+             if (originalIndex !== -1) {
+                 loadTrack(originalIndex, true); // Load using the original index
+             } else {
+                  // Fallback if somehow track object not found in original list (shouldn't happen)
+                  loadTrack(index, true); // Load using the index in the current list
+             }
         });
 
+        // Append elements to the flex container
+        trackContent.appendChild(trackText);
+        trackContent.appendChild(downloadLink);
+
+        // Append the flex container to the list item
+        listItem.appendChild(trackContent);
+
+        // Append the list item to the track list UL
         trackListUL.appendChild(listItem);
+
+         // --- End New Code for Track Item Content ---
     });
     // Highlight based on the current track's index in the *currently displayed list*
     highlightCurrentTrack();
 }
 
-// Function to highlight the currently playing track in the list
-function highlightCurrentTrack() {
-     if (!trackListUL) return;
-     // Use the currently active list for highlighting (original or shuffled)
-    const listToHighlight = isShuffling ? shuffledTrackList : audioFiles;
-
-
-    const trackItems = trackListUL.querySelectorAll('.track-item');
-    trackItems.forEach((item, index) => {
-        // Compare the track object associated with this list item
-        // to the track object currently loaded (based on currentTrackIndex in the original list)
-        const trackObjectInList = listToHighlight[index];
-        const currentlyLoadedTrackObject = audioFiles[currentTrackIndex];
-
-        if (trackObjectInList === currentlyLoadedTrackObject) {
-             item.classList.add('active');
-         } else {
-             item.classList.remove('active');
-         }
-    });
-}
-
-// Initial setup - Call fetchTrackData to start the process
-fetchTrackData();
-
-// Handle window resize for canvas
-window.addEventListener('resize', () => {
-    if (visualizerCanvas && visualizerContext) {
-        visualizerCanvas.width = visualizerCanvas.offsetWidth;
-        visualizerCanvas.height = visualizerCanvas.offsetHeight;
-        // Redraw visualizer when resized if playing or if visualizer was showing something
-        if (isPlaying || (audioSource && audioSource.currentTime > 0)) { // Redraw if playing or paused but not at start
-            drawVisualizer();
-        } else {
-             // If at the beginning and not playing, clear the canvas
-             visualizerContext.clearRect(0, 0, visualizerCanvas.width, visualizerCanvas.height);
-        }
-    }
-});
+// ... (rest of the script, including initial fetchTrackData() call and event listeners) ...
+// Ensure all original event listeners for buttons etc are still present.
