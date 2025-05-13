@@ -133,7 +133,7 @@ h1 {
     opacity: 0.7;
 }
 
-/* New Additional Controls Container */
+/* Additional Controls Container */
 .additional-controls {
     display: flex;
     justify-content: center;
@@ -154,13 +154,13 @@ h1 {
     font-size: 1em;
     cursor: pointer;
     outline: none;
-    -webkit-appearance: none; /* Remove default system styles */
+    -webkit-appearance: none;
     appearance: none;
-    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.362%22%20height%3D%22292.362%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287.043%2C100.407l-14.336-14.335c-4.092-4.092-10.744-4.092-14.835%2C0L146.181%2C230.36l-111.71-111.708c-4.091-4.092-10.743-4.092-14.836%2C0l-14.336%2C14.335c-4.092%2C4.092-4.092%2C10.744%2C0%2C14.836l128.846%2C128.844c4.093%2C4.092%2C10.745%2C4.092%2C14.837%2C0l128.841-128.844C291.134%2C111.151%2C291.134%2C104.499%2C287.043%2C100.407z%22%2F%3E%3C%2Fsvg%3E'); /* Custom dropdown arrow */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.362%22%20height%3D%22292.362%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287.043%2C100.407l-14.336-14.335c-4.092-4.092-10.744-4.092-14.835%2C0L146.181%2C230.36l-111.71-111.708c-4.091-4.092-10.743-4.092-14.836%2C0l-14.336%2C14.335c-4.092%2C4.092-4.092%2C10.744%2C0%2C14.836l128.846%2C128.844c4.093%2C4.092%2C10.745%2C4.092%2C14.837%2C0l128.841-128.844C291.134%2C111.151%2C291.134%2C104.499%2C287.043%2C100.407z%22%2F%3E%3C%2Fsvg%3E');
     background-repeat: no-repeat;
     background-position: right 10px top 50%;
     background-size: 12px auto;
-    padding-right: 30px; /* Space for custom arrow */
+    padding-right: 30px;
 }
 
 
@@ -169,11 +169,11 @@ h1 {
     align-items: center;
     margin-bottom: 25px;
     font-size: 0.9em;
-    width: 100%; /* Take full width */
+    width: 100%;
 }
 
 #current-time, #duration {
-    width: 45px; /* Adjusted width */
+    width: 45px;
     text-align: center;
     flex-shrink: 0;
 }
@@ -191,7 +191,7 @@ h1 {
 .progress-bar {
     width: 0%;
     height: 100%;
-    background-color: #ff4081; /* Accent color for progress */
+    background-color: #ff4081;
     border-radius: 4px;
     transition: width 0.1s linear;
 }
@@ -202,7 +202,7 @@ h1 {
     align-items: center;
     justify-content: center;
     margin-bottom: 30px;
-    width: 100%; /* Take full width */
+    width: 100%;
 }
 
 #volume-icon {
@@ -246,18 +246,18 @@ h1 {
 
 /* Loading Indicator Style */
 .loading-indicator {
-    color: #ff4081; /* Accent color */
+    color: #ff4081;
     font-size: 1em;
-    margin-top: -20px; /* Adjust margin */
-    margin-bottom: 20px; /* Space below */
-    visibility: hidden; /* Hidden by default */
-    opacity: 0; /* Fully transparent by default */
+    margin-top: -20px;
+    margin-bottom: 20px;
+    visibility: hidden;
+    opacity: 0;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .loading-indicator.visible {
-    visibility: visible; /* Becomes visible */
-    opacity: 1; /* Fully opaque */
+    visibility: visible;
+    opacity: 1;
 }
 
 
@@ -269,7 +269,7 @@ h1 {
     border-radius: 10px;
     margin-bottom: 30px;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-    display: block; /* Ensure it takes up space */
+    display: block;
 }
 
 /* Track List */
@@ -281,7 +281,7 @@ h1 {
     max-height: 250px;
     overflow-y: auto;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 100%; /* Take full width */
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -299,7 +299,6 @@ h1 {
     margin: 0;
 }
 
-/* Style for EACH track item (li) */
 .track-item {
     padding: 10px 15px;
     margin-bottom: 8px;
@@ -307,14 +306,10 @@ h1 {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.1s ease;
+    text-align: left;
     font-size: 1.1em;
     color: #e0e0e0;
-
-    display: flex; /* Use flexbox to align text and button */
-    justify-content: space-between; /* Space out track name and download button */
-    align-items: center; /* Vertically align items */
-    width: 100%; /* Ensure it takes full width */
-    box-sizing: border-box; /* Include padding in width */
+    /* No flexbox or download button specific styles here */
 }
 
 .track-item:hover {
@@ -327,37 +322,6 @@ h1 {
     color: #ffffff;
     font-weight: bold;
     box-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
-}
-
-/* Style for the text part inside the list item */
-.track-item .track-info-text {
-    flex-grow: 1; /* Allow text to take up available space */
-    margin-right: 10px; /* Space between text and button */
-    overflow: hidden; /* Hide overflow text */
-    text-overflow: ellipsis; /* Add ellipsis (...) for overflow text */
-    white-space: nowrap; /* Prevent text from wrapping */
-}
-
-
-/* Style for the download button/link inside the list item */
-.track-item .download-btn {
-    color: #e0e0e0; /* Icon color */
-    font-size: 1em; /* Icon size */
-    text-decoration: none; /* Remove underline */
-    margin-left: 10px; /* Space from text */
-    flex-shrink: 0; /* Prevent button from shrinking */
-    padding: 5px; /* Add some padding to make it easier to click */
-    border-radius: 50%; /* Optional: Make it round */
-    transition: color 0.2s ease, background-color 0.2s ease;
-    display: flex; /* Center icon inside button */
-    justify-content: center;
-    align-items: center;
-    cursor: pointer; /* Show pointer cursor */
-}
-
-.track-item .download-btn:hover {
-    color: #ff4081; /* Change color on hover */
-    background-color: rgba(255, 255, 255, 0.1); /* Optional: Add background on hover */
 }
 
 
@@ -419,7 +383,7 @@ h1 {
     font-size: 1em;
     margin: 0 5px;
 }
-.audio-bar-controls .control-btn.small { /* Specific margin for bar controls */
+.audio-bar-controls .control-btn.small {
     margin: 0 3px;
 }
 
@@ -514,16 +478,8 @@ h1 {
     .track-item {
         padding: 8px 12px;
         font-size: 1em;
+        text-align: left; /* Ensure text is left-aligned */
     }
-     /* Adjust padding for download button */
-     .track-item .download-btn {
-         padding: 3px;
-         margin-left: 8px;
-     }
-     .track-item .track-info-text {
-         margin-right: 8px;
-     }
-
 
     .audio-bar {
         padding: 8px 15px;
@@ -606,16 +562,7 @@ h1 {
      .track-item {
         padding: 7px 10px;
         font-size: 0.9em;
-     }
-      /* Adjust padding for download button */
-     .track-item .download-btn {
-         padding: 2px;
-         margin-left: 5px;
-         font-size: 0.7em; /* Smaller icon */
-     }
-      .track-item .track-info-text {
-         margin-right: 5px;
-         font-size: 0.9em;
+         text-align: left;
      }
 
 
