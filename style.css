@@ -565,5 +565,96 @@ h1 {
        font-size: 0.8em;
        margin: 0 1px; /* Reduce margin */
     }
+/* --- New Styles for Download Button in Track List --- */
+.track-item {
+    /* Existing styles */
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    /* text-align: left; <-- Remove or override this, use flexbox for alignment */
+    font-size: 1.1em;
+    color: #e0e0e0;
 
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space out track name and download button */
+    align-items: center; /* Vertically align items */
+}
+
+.track-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+}
+
+.track-item.active {
+    background-color: #ff4081;
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
+}
+
+.track-item .track-info-text { /* Style for the track name/artist text */
+    flex-grow: 1; /* Allow text to take up available space */
+    margin-right: 10px; /* Space between text and button */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Add ellipsis (...) for overflow text */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+
+.track-item .download-btn {
+    color: #e0e0e0; /* Icon color */
+    font-size: 1em; /* Icon size */
+    text-decoration: none; /* Remove underline */
+    margin-left: 10px; /* Space from text */
+    flex-shrink: 0; /* Prevent button from shrinking */
+    padding: 5px; /* Add some padding to make it easier to click */
+    border-radius: 50%; /* Optional: Make it round */
+    transition: color 0.2s ease, background-color 0.2s ease;
+    display: flex; /* Center icon inside button */
+    justify-content: center;
+    align-items: center;
+}
+
+.track-item .download-btn:hover {
+    color: #ff4081; /* Change color on hover */
+    background-color: rgba(255, 255, 255, 0.1); /* Optional: Add background on hover */
+}
+
+/* --- End New Styles --- */
+
+
+/* Keep all your existing styles above or below this */
+/* ... existing styles ... */
+
+
+/* Responsive adjustments for download button if needed */
+@media (max-width: 600px) {
+    .track-item {
+        padding: 8px 12px; /* Adjust padding */
+    }
+    .track-item .download-btn {
+        font-size: 0.9em; /* Adjust icon size */
+        padding: 4px;
+    }
+     .track-item .track-info-text {
+         margin-right: 8px;
+     }
+}
+
+@media (max-width: 400px) {
+     .track-item {
+        padding: 7px 10px;
+     }
+      .track-item .download-btn {
+        font-size: 0.8em;
+        padding: 3px;
+     }
+     .track-item .track-info-text {
+         margin-right: 5px;
+         font-size: 0.9em; /* Match list item font size */
+     }
+}
 }
