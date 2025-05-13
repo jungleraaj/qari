@@ -41,7 +41,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
+    margin: 0 -10px 30px -10px; /* Adjust margins for button spacing */
 }
 
 .control-btn {
@@ -53,7 +53,7 @@ h1 {
     height: 50px;
     font-size: 1.2em;
     cursor: pointer;
-    margin: 0 10px;
+    margin: 0 10px; /* Space between buttons */
     transition: background-color 0.3s ease, transform 0.1s ease;
     display: flex;
     justify-content: center;
@@ -97,6 +97,7 @@ h1 {
 #current-time, #duration {
     width: 40px;
     text-align: center;
+    flex-shrink: 0; /* Prevent text from shrinking */
 }
 
 .progress-bar-container {
@@ -190,6 +191,7 @@ h1 {
     margin-top: 0;
     margin-bottom: 15px;
     font-size: 1.5em;
+    text-align: center; /* Center the heading */
 }
 
 #track-list {
@@ -289,6 +291,11 @@ h1 {
 
     h1 {
         font-size: 2em;
+        margin-bottom: 20px; /* Adjust margin */
+    }
+
+    .main-controls {
+         margin-bottom: 20px;
     }
 
     .control-btn {
@@ -304,12 +311,19 @@ h1 {
         font-size: 1.5em;
     }
 
+    .progress-section {
+        margin-bottom: 20px;
+    }
+
+
     #visualizer {
         height: 60px;
+        margin-bottom: 20px; /* Adjust margin */
     }
 
     .track-list-container {
         padding: 15px;
+        margin-top: 15px; /* Adjust margin */
     }
 
     .track-list-container h2 {
@@ -334,4 +348,47 @@ h1 {
         height: 35px;
         font-size: 0.9em;
     }
+     #volume-slider {
+        width: 100px; /* Adjust slider width */
+     }
+}
+
+@media (max-width: 400px) {
+     .player-container {
+        padding: 15px;
+     }
+     h1 {
+        font-size: 1.8em;
+     }
+     .control-btn.large {
+        width: 55px;
+        height: 55px;
+     }
+     .progress-section {
+        font-size: 0.8em;
+     }
+     #current-time, #duration {
+         width: 35px;
+     }
+     .track-item {
+        font-size: 0.9em;
+     }
+     #audio-bar-track-name {
+        font-size: 0.8em;
+     }
+     .control-btn.small {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8em;
+     }
+      #volume-slider {
+        width: 80px; /* Further adjust slider width */
+      }
+      .volume-control {
+        gap: 5px; /* Reduce gap */
+      }
+       #volume-icon {
+        font-size: 1em;
+       }
+
 }
