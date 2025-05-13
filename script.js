@@ -52,7 +52,6 @@ let isPlaying = false;
 let isShuffling = false;
 let shuffledTrackList = []; // To store the order when shuffling
 let repeatMode = 0; // 0: No Repeat, 1: Repeat All, 2: Repeat One
-const repeatModes = ['repeat', 'repeat_all', 'repeat_one']; // Corresponding Font Awesome classes/logic states
 
 
 // Function to format time (e.g., 150 seconds -> 2:30)
@@ -64,11 +63,10 @@ function formatTime(seconds) {
 }
 
 // Function to show/hide loading indicator
-function showLoadingIndicator() {
+function showLoadingIndicator(message = "Loading...") { // Added default message
     if (loadingIndicator) {
         loadingIndicator.classList.add('visible');
-        // You can cycle through messages here if you want
-        // loadingIndicator.textContent = "Loading...";
+        loadingIndicator.textContent = message;
     }
 }
 
@@ -81,14 +79,14 @@ function hideLoadingIndicator() {
 
 // Function to fetch track data from JSON
 async function fetchTrackData() {
-    showLoadingIndicator(); // Show loading indicator while fetching
+    showLoadingIndicator("Fetching track list..."); // Show loading indicator while fetching
     try {
         const response = await fetch('tracks.json'); // Fetch the JSON file
         if (!response.ok) {
              const errorText = `Error loading tracks: HTTP status ${response.status}`;
              console.error(errorText);
              displayErrorMessage(errorText);
-             hideLoadingIndicator(); // Hide indicator on error
+             hideLoadingIndicator();
              return;
         }
         let fetchedData = await response.json(); // Parse JSON
@@ -123,7 +121,7 @@ async function fetchTrackData() {
     }
 }
 
-// Function to display a message when tracks can't be loaded
+// Function to display a message when tracks can't be loaded or no tracks available
 function displayErrorMessage(message) {
      if (trackListUL) {
         trackListUL.innerHTML = `<li class="track-item" style="color:red; text-align:center;">${message}</li>`;
@@ -131,13 +129,13 @@ function displayErrorMessage(message) {
      if (audioBarTrackName) {
          audioBarTrackName.textContent = "Error loading tracks.";
      }
-     // Disable controls on error
+     // Disable controls on error/no tracks
      if (playPauseBtn) playPauseBtn.disabled = true;
      if (prevBtn) prevBtn.disabled = true;
      if (nextBtn) nextBtn.disabled = true;
      if (audioBarPlayPauseBtn) audioBarPlayPauseBtn.disabled = true;
      if (audioBarNextBtn) audioBarNextBtn.disabled = true;
-     if (shuffleBtn) shuffleBtn.disabled = true; // Disable new buttons too
+     if (shuffleBtn) shuffleBtn.disabled = true;
      if (repeatBtn) repeatBtn.disabled = true;
      if (seekBackwardBtn) seekBackwardBtn.disabled = true;
      if (seekForwardBtn) seekForwardBtn.disabled = true;
@@ -214,7 +212,7 @@ function loadTrack(index, autoPlay = true) {
     if (audioSource) {
         audioSource.src = track.path; // Use the 'path' property from JSON
         audioSource.load(); // Load the audio file
-        showLoadingIndicator(); // Show loading indicator
+        showLoadingIndicator("Loading audio..."); // Show loading indicator
     } else {
         console.error("Audio source element not found!");
         return;
@@ -245,7 +243,7 @@ function loadTrack(index, autoPlay = true) {
         if (audioSource) audioSource.pause();
          // Ensure visualizer is cleared when paused manually
         if(visualizerCanvas && visualizerContext) {
-             visualizerContext.clearRect(0, 0, visualizerCanvas.width, visualizerCanvas.height);
+             visualizerContext.clearRect(0, 0, visualizerCanvas.width, visualizerContext.height);
         }
     }
     updatePlayPauseIcons();
@@ -284,7 +282,7 @@ function playPauseToggle() {
             } else {
                  // Before playing, ensure loading indicator is shown if not already
                  if (audioSource.readyState < 4) { // Check if still buffering
-                     showLoadingIndicator();
+                     showLoadingIndicator("Buffering...");
                  }
                 audioSource.play().catch(error => {
                     console.error("Audio Playback Error:", error);
@@ -306,13 +304,13 @@ function playPauseToggle() {
             audioSource.pause();
              // Ensure visualizer is cleared when paused manually
             if(visualizerCanvas && visualizerContext) {
-                 visualizerContext.clearRect(0, 0, visualizerCanvas.width, visualizerCanvas.height);
+                 visualizerContext.clearRect(0, 0, visualizerCanvas.width, visualizerContext.height);
             }
 
         } else {
              // Before playing, ensure loading indicator is shown if not already
              if (audioSource.readyState < 4) { // Check if still buffering
-                 showLoadingIndicator();
+                 showLoadingIndicator("Buffering...");
              }
             audioSource.play().catch(error => {
                 console.error("Audio Playback Error:", error);
@@ -624,7 +622,7 @@ if (audioSource) {
         updatePlayPauseIcons(); // Update icons to play state
          // Clear visualizer when track ends
         if(visualizerCanvas && visualizerContext) {
-             visualizerContext.clearRect(0, 0, visualizerCanvas.width, visualizerCanvas.height);
+             visualizerContext.clearRect(0, 0, visualizerCanvas.width, visualizerContext.height);
         }
 
 
@@ -791,21 +789,10 @@ function renderTrackList() {
 
     listToRender.forEach((track, index) => { // Iterate over track objects
         const listItem = document.createElement('li');
-        // Add the track-item class for styling
         listItem.classList.add('track-item');
-        // Store the index in the *currently displayed list* (shuffled or original)
         listItem.dataset.index = index;
 
-        // --- New Code for Track Item Content (Text + Download Button) ---
-        const trackContent = document.createElement('div');
-        trackContent.style.display = 'flex'; // Use flexbox for layout
-        trackContent.style.justifyContent = 'space-between'; // Space out text and button
-        trackContent.style.alignItems = 'center'; // Vertically align items
-        trackContent.style.width = '100%'; // Ensure it takes full width of list item
-
-
-        // Create text span for track name/artist
-        const trackText = document.createElement('span');
+        // Display logic: Primary name, maybe secondary artist/album if available
         let displayText = track.name;
         if (track.artist && track.artist !== "" && track.artist !== track.name) { // Avoid duplicating name if artist is same
             displayText += ` - ${track.artist}`;
@@ -814,61 +801,67 @@ function renderTrackList() {
         // if (track.album && track.album !== "") {
         //     displayText += ` (${track.album})`;
         // }
-        trackText.textContent = displayText;
-        trackText.classList.add('track-info-text'); // Add class for styling
+
+        listItem.textContent = displayText; // Display text directly
+
+        listItem.addEventListener('click', () => {
+            // When a list item is clicked, find the *original* index of that track object
+             const trackObjectClicked = isShuffling ? shuffledTrackList[index] : audioFiles[index];
+             const originalIndex = audioFiles.indexOf(trackObjectClicked);
 
 
-        // Create download link
-        const downloadLink = document.createElement('a');
-        // Use encodeURI to handle potential spaces or special characters in the path
-        downloadLink.href = encodeURI(track.path); // Set the file path from JSON
-        // Set the download attribute to suggest a filename
-        // Suggest name.ext, handling potential missing extension in path gracefully
-        const fileName = track.path.split('/').pop(); // Get just the filename part
-        const suggestedFileName = track.name + (fileName.includes('.') ? fileName.substring(fileName.lastIndexOf('.')) : ''); // Add extension if found
-
-        downloadLink.download = suggestedFileName; // Suggest filename for download
-        downloadLink.classList.add('download-btn'); // Add a class for styling
-        downloadLink.innerHTML = '<i class="fas fa-download"></i>'; // Add download icon
-        downloadLink.title = `Download ${track.name}`; // Add a tooltip
-
-
-        // Add click listener to the list item (excluding clicks on the download link)
-        // We use event delegation here to check what was actually clicked inside the li
-        listItem.addEventListener('click', (event) => {
-            // Check if the click target or any of its ancestors is the download link
-            if (event.target.closest('.download-btn')) {
-                // If click is on download button or its icon, do nothing (let the link's default behavior handle download)
-                console.log(`Download clicked for track: ${track.name}`);
-                return;
+            if (originalIndex !== -1) {
+                loadTrack(originalIndex, true); // Load using the original index
+            } else {
+                 // Fallback if somehow track object not found in original list (shouldn't happen)
+                 loadTrack(index, true); // Load using the index in the current list (less reliable after shuffle toggle)
             }
-
-            // If click is elsewhere in the list item, load and play the track (existing logic)
-             console.log(`Track item clicked for playback: ${track.name}`);
-             const originalIndex = audioFiles.indexOf(track);
-             if (originalIndex !== -1) {
-                 loadTrack(originalIndex, true); // Load using the original index
-             } else {
-                  // Fallback if somehow track object not found in original list (shouldn't happen)
-                  loadTrack(index, true); // Load using the index in the current list
-             }
         });
 
-        // Append elements to the flex container
-        trackContent.appendChild(trackText);
-        trackContent.appendChild(downloadLink);
-
-        // Append the flex container to the list item
-        listItem.appendChild(trackContent);
-
-        // Append the list item to the track list UL
         trackListUL.appendChild(listItem);
-
-         // --- End New Code for Track Item Content ---
     });
     // Highlight based on the current track's index in the *currently displayed list*
     highlightCurrentTrack();
 }
 
-// ... (rest of the script, including initial fetchTrackData() call and event listeners) ...
-// Ensure all original event listeners for buttons etc are still present.
+
+// Function to highlight the currently playing track in the list
+function highlightCurrentTrack() {
+     if (!trackListUL) return;
+     // Use the currently active list for highlighting (original or shuffled)
+    const listToHighlight = isShuffling ? shuffledTrackList : audioFiles;
+
+
+    const trackItems = trackListUL.querySelectorAll('.track-item');
+    trackItems.forEach((item, index) => {
+        // Compare the track object associated with this list item
+        // to the track object currently loaded (based on currentTrackIndex in the original list)
+        const trackObjectInList = listToHighlight[index];
+        const currentlyLoadedTrackObject = audioFiles[currentTrackIndex];
+
+        if (trackObjectInList === currentlyLoadedTrackObject) {
+             item.classList.add('active');
+         } else {
+             item.classList.remove('active');
+         }
+    });
+}
+
+
+// Initial setup - Call fetchTrackData to start the process
+fetchTrackData();
+
+// Handle window resize for canvas
+window.addEventListener('resize', () => {
+    if (visualizerCanvas && visualizerContext) {
+        visualizerCanvas.width = visualizerCanvas.offsetWidth;
+        visualizerCanvas.height = visualizerCanvas.offsetHeight;
+        // Redraw visualizer when resized if playing or if visualizer was showing something
+        if (isPlaying || (audioSource && audioSource.currentTime > 0)) {
+            drawVisualizer();
+        } else {
+             // If at the beginning and not playing, clear the canvas
+             visualizerContext.clearRect(0, 0, visualizerCanvas.width, visualizerCanvas.height);
+        }
+    }
+});
