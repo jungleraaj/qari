@@ -1,18 +1,36 @@
 [
   {
-    "name": "song1",
-    "path": "audio/song1.mp3",
+    "name": "سورہ الحاقہ",
+    "path": "audio/haqah.mp3",
+    "artist": "Qari Abdul Salam Azizi",
+    "album": "Short Surahs Collection"
+  },
+{
+    "name": "سورہ فاتحہ",
+    "path": "audio/fatiha.mp3",
     "artist": "Qari Abdul Salam Azizi",
     "album": "Short Surahs Collection"
   },
   {
-    "name": "3",
-    "path": "audio/3.mp3",
+    "name": "Random1",
+    "path": "audio/r1.mp3",
+    "artist": "Qari Abdul Salam Azizi",
+    "album": "Short Surahs Collection"
+  },
+{
+    "name": "سورہ یٰسین",
+    "path": "audio/yasin.mp3",
+    "artist": "Qari Abdul Salam Azizi",
+    "album": "Short Surahs Collection"
+  },
+  {
+    "name": " سورہ الرحمن",
+    "path": "audio/rehman.mp3",
     "artist": "Qari Abdul Salam Azizi",
     "album": "Selected Verses"
   },
   {
-    "name": "song1",
-    "path": "audio/song1.mp3"
+    "name": " سورہ حجرات",
+    "path": "audio/hujrat.mp3"
   }
 ]
