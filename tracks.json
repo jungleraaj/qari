@@ -1,7 +1,7 @@
 [
   {
     "name": "Surah Al-Fatiha",
-    "path": "audio/song1.mp3",
+    "path": "audio/1.mp3",
     "artist": "Qari Abdul Salam Azizi",
     "album": "Short Surahs Collection"
   },
@@ -11,5 +11,8 @@
     "artist": "Qari Abdul Salam Azizi",
     "album": "Selected Verses"
   },
-
+  {
+    "name": "Short Recitation",
+    "path": "audio/song1.mp3"
+  }
 ]
