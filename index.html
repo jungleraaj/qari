@@ -14,6 +14,8 @@
 
         <div class="track-info-detail">
             <div id="track-artist"></div> <div id="track-name-detail"></div> <div id="track-album"></div> </div>
+
+
         <div class="main-controls">
             <button id="shuffle-btn" class="control-btn" aria-label="Shuffle"><i class="fas fa-random"></i></button>
 
@@ -27,7 +29,10 @@
         </div>
 
         <div class="additional-controls">
-            <button id="seek-backward-btn" class="control-btn small" aria-label="Seek Backward 10 seconds"><i class="fas fa-rotate-left"></i></button> <button id="seek-forward-btn" class="control-btn small" aria-label="Seek Forward 10 seconds"><i class="fas fa-rotate-right"></i></button> <select id="speed-select" aria-label="Playback Speed">
+            <button id="seek-backward-btn" class="control-btn small" aria-label="Seek Backward 10 seconds"><i class="fas fa-rotate-left"></i></button>
+            <button id="seek-forward-btn" class="control-btn small" aria-label="Seek Forward 10 seconds"><i class="fas fa-rotate-right"></i></button>
+
+            <select id="speed-select" aria-label="Playback Speed">
                 <option value="0.5">0.5x</option>
                 <option value="0.75">0.75x</option>
                 <option value="1" selected>1x</option>
@@ -36,7 +41,9 @@
                 <option value="2">2x</option>
             </select>
         </div>
-         <div class="progress-section">
+
+
+        <div class="progress-section">
             <span id="current-time">0:00</span>
             <div class="progress-bar-container">
                 <div class="progress-bar"></div>
@@ -50,7 +57,9 @@
         </div>
 
          <div id="loading-indicator" class="loading-indicator">Loading...</div>
-         <canvas id="visualizer"></canvas>
+
+
+        <canvas id="visualizer"></canvas>
 
         <div class="track-list-container">
             <h2>دستیاب ٹریکس</h2>
