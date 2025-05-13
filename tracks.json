@@ -14,27 +14,8 @@
   {
     "name": "Short Recitation",
     "path": "audio/short_recitation.ogg"
-    // Agar artist aur album ki tafseel nahin dena chahte, toh sirf name aur path kafi hain
+   
   }
-  // ========== APNI NAYI AUDIO FILES YAHAN ADD KAREIN ==========
-  // Har nayi audio file ke liye, neeche di gayi format mein aik entry add karein.
-  // Puranay object ke baad comma (,) lagana mat bhooliyega.
-  // "artist" aur "album" fields optional hain.
-  //
-  // ,
-  // {
-  //   "name": "Nayi Audio Ka Naam Jo Player Mein Dikhega",
-  //   "path": "audio/apni_nayi_audio_file.mp3",
-  //   "artist": "Is Audio Ke Qari Ka Naam (Optional)",
-  //   "album": "Is Audio Ki Collection Ka Naam (Optional)"
-  // }
-  //
-  // Agar koi aur nayi file hai, toh uske liye bhi is format mein entry add karein
-  // ,
-  // {
-  //   "name": "Dosri Nayi Audio Ka Naam",
-  //   "path": "audio/dosri_nayi_audio_file.wav"
-  //   // Agar artist/album nahin dena toh bas name aur path kafi hain
-  // }
-  // ====================================================
+ 
+
 ]
