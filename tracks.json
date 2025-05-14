@@ -1,10 +1,42 @@
 [
   {
+    "name": "Random2",
+    "path": "audio/r2.mp3",
+    "artist": "Qari Abdul Salam Azizi",
+    "album": "Short Surahs Collection"
+  },
+  {
+    "name": "سورۃ الأعلیٰ",
+    "path": "audio/ala.mp3",
+    "artist": "Qari Abdul Salam Azizi",
+    "album": "Short Surahs Collection"
+  },
+{
+    "name": "سورۃ الملک",
+    "path": "audio/mulk.mp3",
+    "artist": "Qari Abdul Salam Azizi",
+    "album": "Short Surahs Collection"
+  },
+  {
+    "name": "سورۃ الزمر",
+    "path": "audio/zumar.mp3",
+    "artist": "Qari Abdul Salam Azizi",
+    "album": "Short Surahs Collection"
+  },
+{
+    "name": "سورۃ الحشر",
+    "path": "audio/hashr.mp3",
+    "artist": "Qari Abdul Salam Azizi",
+    "album": "Short Surahs Collection"
+  },
+  
+  {
     "name": "سورہ الحاقہ",
     "path": "audio/haqah.mp3",
     "artist": "Qari Abdul Salam Azizi",
     "album": "Short Surahs Collection"
   },
+  
 {
     "name": "سورہ فاتحہ",
     "path": "audio/fatiha.mp3",
